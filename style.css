@@ -1,0 +1,424 @@
+/* --- VARIABLES & RESET --- */
+:root {
+    --bg-color: #EFEFEF; 
+    --text-color: #111;
+    --brand-red: #DC1E28; 
+    --font-serif:'CircularStdBold', sans-serif;
+    --font-sans: 'Inter', sans-serif; /* Added fallback variable */
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+@font-face {
+    font-family: 'CircularStdBold';
+    src: local('CircularStdBold'), url('./CircularStdBold.woff') format('woff');
+}
+
+body {
+    font-family: var(--font-serif);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    width: 100vw;
+    overflow-x: hidden; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 200;
+}
+
+/* --- NAV BAR --- */
+nav {
+    position: fixed; 
+    top: 40px;
+    left: 40px;
+    display: flex;
+    gap: 24px;
+    font-family: var(--font-serif);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    z-index: 100;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--text-color);
+    opacity: 0.6;
+    transition: opacity 0.3s, color 0.3s;
+}
+
+nav a:hover {
+    opacity: 1;
+    color: var(--brand-red); 
+}
+
+.top-bar {
+    position: fixed; 
+    top: 40px;
+    right: 40px;
+    display: flex;
+    gap: 24px;
+    font-family: var(--font-serif);
+    font-size: 11px;
+    font-weight: 100;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    z-index: 100;
+    text-align: right;
+}
+
+/* --- MAIN CONTAINER --- */
+.container {
+    position: relative;
+    width: 1200px;
+    height: 800px;
+    max-width: 100%; 
+    perspective: 1000px;
+}
+
+/* --- CENTER LOGO --- */
+.center-graphic {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px; /* Reduced slightly for better fit */
+    max-width: 80%;
+    height: auto;
+    z-index: 2;
+    animation: logoReveal 1.5s ease-out forwards;
+}
+
+/* --- SVG LINES --- */
+.lines-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.lines-layer line {
+    stroke: #333;
+    stroke-opacity: 0.3;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: drawLine 3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    animation-delay: 0.5s;
+}
+
+.lines-layer rect {
+    fill: var(--brand-red); 
+    opacity: 0;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    animation-delay: 2.2s;
+}
+
+/* --- TEXT BLOCKS --- */
+.content-block {
+    position: absolute;
+    width: 260px;
+    z-index: 3;
+    padding: 20px;
+    border-radius: 8px;
+    
+    /* Glassmorphism effect */
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    opacity: 0;
+    cursor: pointer;
+    font-weight: 100;
+}
+
+.content-block:hover {
+    background: rgba(255, 255, 255, 0.95);
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    border-color: var(--brand-red);
+}
+
+/* Label styling */
+.label {
+    font-family: var(--font-sans);
+    font-size: 10px;
+    text-transform: uppercase;
+    background: var(--text-color);
+    color: #fff;
+    padding: 4px 8px;
+    display: inline-block;
+    margin-bottom: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    border-radius: 2px;
+}
+
+.label a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.label::after {
+    content: " \2192";
+}
+
+p {
+    font-family: var(--font-serif);
+    line-height: 1.5;
+    font-size: 15px;
+    color: #333;
+}
+
+/* --- POSITIONING --- */
+.block-left { top: 20%; left: 10%; }
+.block-left-bottom { bottom: 15%; left: 12%; }
+.block-right-top { top: 18%; right: 10%; }
+.block-right-bottom { bottom: 15%; right: 8%; }
+
+/* --- ANIMATIONS --- */
+@keyframes drawLine { to { stroke-dashoffset: 0; } }
+@keyframes popIn { from { opacity: 0; transform: scale(0); } to { opacity: 1; transform: scale(1); } }
+@keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+@keyframes logoReveal { 
+    from { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
+    to { opacity: 0.9; transform: translate(-50%, -50%) scale(1); }
+}
+
+/* Delayed animations for blocks */
+.block-left { animation: fadeInUp 0.8s ease-out forwards 2.4s; }
+.block-left-bottom { animation: fadeInUp 0.8s ease-out forwards 2.6s; }
+.block-right-top { animation: fadeInUp 0.8s ease-out forwards 2.5s; }
+.block-right-bottom { animation: fadeInUp 0.8s ease-out forwards 2.7s; }
+
+/* =========================================
+   OVERLAY / MODAL STYLES
+   ========================================= */
+
+.overlay-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    z-index: 2000; /* Ensure it is above nav */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+
+.overlay-container.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.modal-box {
+    background: rgba(255, 255, 255, 0.95);
+    width: 600px;
+    max-width: 90%;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+    position: relative;
+    transform: translateY(30px);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-align: left;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.overlay-container.active .modal-box {
+    transform: translateY(0);
+}
+
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 32px;
+    cursor: pointer;
+    color: var(--text-color);
+    transition: color 0.3s;
+    line-height: 1;
+}
+
+.close-btn:hover {
+    color: var(--brand-red);
+}
+
+.modal-content {
+    display: none;
+    animation: fadeIn 0.5s;
+}
+
+.modal-content.active-content {
+    display: block;
+}
+
+.modal-content h2 {
+    font-family: var(--font-serif);
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: var(--brand-red);
+}
+
+.team-list {
+    list-style: none;
+    margin-top: 20px;
+}
+
+.team-list li {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* --- BACKGROUND CIRCLES --- */
+.circle-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; 
+    pointer-events: none; 
+    overflow: hidden;
+}
+
+.bg-circle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0; 
+    animation: fadeInCircle 1.5s ease-out forwards, floatShape 10s ease-in-out infinite alternate;
+}
+
+.c-1 { width: 400px; height: 400px; top: -50px; left: -100px; border: 1px solid rgba(0, 0, 0, 0.08); animation-delay: 0.2s; }
+.c-2 { width: 300px; height: 300px; bottom: 5%; right: 15%; border: 1px solid rgba(220, 30, 40, 0.2); animation-delay: 0.5s; }
+.c-3 { width: 350px; height: 350px; top: 5%; right: 0%; border: 1px solid rgba(220, 30, 40, 0.2); opacity: 0; animation: fadeInCircle 1s ease-out forwards 1s, floatShape 6s ease-in-out infinite alternate; }
+.c-4 { width: 700px; height: 700px; bottom: -200px; left: 20%; border: 1px solid rgba(0, 0, 0, 0.04); animation-delay: 0.8s; }
+
+@keyframes fadeInCircle { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+@keyframes floatShape { 0% { transform: translate(0, 0); } 100% { transform: translate(15px, 20px); } }
+
+
+/* =========================================
+   MOBILE RESPONSIVENESS (UPDATED)
+   ========================================= */
+@media screen and (max-width: 900px) {
+    body {
+        height: auto;
+        min-height: 100vh;
+        overflow-y: auto;
+        padding: 0;
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    /* Stack Nav and Top Bar normally */
+    nav {
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 20px;
+        justify-content: center;
+        background: #fff;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .top-bar {
+        position: relative;
+        top: 0;
+        right: 0;
+        width: 100%;
+        padding: 10px 20px;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        text-align: center;
+        background: #fafafa;
+        border-bottom: 1px solid #eee;
+        font-size: 10px;
+    }
+
+    .nav-item {
+        width: 100%;
+    }
+
+    /* Container adjusts to flow content vertically */
+    .container {
+        height: auto;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+        padding: 40px 20px;
+        overflow: visible; /* Allow content to flow */
+    }
+
+    /* Hide complex background elements on mobile to prevent clutter */
+    .lines-layer { display: none; }
+    .bg-circle { opacity: 0.3; } /* Optional: dim circles instead of removing */
+    
+    /* Center Logo Adjustment */
+    .center-graphic {
+        position: relative;
+        top: auto; 
+        left: auto;
+        transform: none !important; /* Override JS parallax */
+        width: 800px;
+        margin-bottom: 20px;
+        animation: logoReveal 1s ease-out forwards;
+    }
+
+    /* Content Cards become standard blocks */
+    .content-block {
+        position: relative;
+        top: auto !important; 
+        left: auto !important; 
+        right: auto !important; 
+        bottom: auto !important;
+        width: 100%;
+        max-width: 450px;
+        opacity: 1; 
+        animation: none; /* Disable entrance animation to prevent scrolling glitch */
+        transform: none !important; /* Disable hover transform override */
+        background: #fff;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        margin-bottom: 10px;
+    }
+    
+    /* Re-enable a simple fade in for mobile blocks */
+    .content-block {
+        animation: fadeInUp 0.5s ease-out forwards;
+        opacity: 0;
+    }
+    .content-block:nth-child(1) { animation-delay: 0.2s; }
+    .content-block:nth-child(2) { animation-delay: 0.3s; }
+    .content-block:nth-child(3) { animation-delay: 0.4s; }
+    .content-block:nth-child(4) { animation-delay: 0.5s; }
+}

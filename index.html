@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - SDG 14</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="logo.png">
+    <style type="text/css">
+        h1 { font-family: 'CircularStdBold'; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#" class="nav-link" data-target="about">About</a>
+        <a href="#" class="nav-link" data-target="team">Team</a>
+        <a href="#" class="nav-link" data-target="status">Status</a>
+    </nav>
+
+    <header class="top-bar">
+        <div class="nav-item">School of Communication and Design</div>
+        <div class="nav-item center">RMIT University Vietnam</div>
+        <div class="nav-item right">January 16th, 2026</div>
+    </header>
+
+    <div class="container">
+        
+        <svg class="lines-layer">
+            <line x1="28%" y1="41%" x2="45%" y2="50%" stroke="black" stroke-width="1" />
+            <rect x="27.5%" y="40.5%" width="6" height="6" fill="black" />
+            
+            <line x1="70%" y1="20%" x2="53%" y2="45%" stroke="black" stroke-width="1" />
+            <rect x="70%" y="19.5%" width="6" height="6" fill="black" />
+            
+            <line x1="70%" y1="71%" x2="54%" y2="54%" stroke="black" stroke-width="1" />
+            <rect x="70%" y="71%" width="6" height="6" fill="black" />
+
+            <line x1="28%" y1="80%" x2="50%" y2="55%" stroke="black" stroke-width="1" />
+            <rect x="27.5%" y="80%" width="6" height="6" fill="black" />
+        </svg>
+
+        <div class="circle-container">
+            <div class="bg-circle c-1"></div>
+            <div class="bg-circle c-2"></div>
+            <div class="bg-circle c-3"></div>
+            <div class="bg-circle c-4"></div>
+        </div>
+
+        <img src="logo.png" alt="Brand Logo" class="center-graphic blend-mode">
+
+        <div class="content-block block-left">
+            <div class="label"><a href="https://hoangius17.github.io/Generative-Art/">Ho Hoang</a></div>
+            <p>
+                Water waste pollutants represent a critical environmental challenge, it can significantly affect on water. Through that, my work wants to alert people about the danger of this action into the marine life.
+            </p>
+        </div>
+
+        <div class="content-block block-left-bottom">
+            <div class="label" ><a href="#">Kyo</a></div>
+            <p>
+                Encircled visualizes the pain of marine life caused by human littering. It tells us why we need to protect the ocean right now.
+            </p>
+        </div>
+
+        <div class="content-block block-right-top">
+            <div class="label"><a href="#">Cao Khai</a></div>
+            <p>
+                Silent Ocean explores the unseen effects of human activity on the ocean, where quiet, invisible actions can trigger wide-reaching consequences. The expanding forms suggest how damage spreads through interconnected marine systems beneath the surface.
+        </div>
+
+        <div class="content-block block-right-bottom">
+            <div class="label"><a href="#">Duy Khai</a></div>
+            <p>
+                Seigaiha visualizes the flow of the ocean, revealing both its harmony and the growing disorder caused by pollution and environmental collapse.
+            </p>
+        </div>
+
+    </div>
+
+    <div class="overlay-container" id="infoOverlay">
+        <div class="modal-box">
+            <button class="close-btn" id="closeModal">&times;</button>
+            
+            <div class="modal-content hidden" id="content-about">
+                <h2>About project</h2>
+                <p>This is a generative art project created in p5.js to raise awareness among people about the danger of LIFE BELOW WATER - Goal 14 from the United Nations Sustainable Development Goals (UN SDGs). We aim to create 4 websites that combine art and technology to contain generative art with strong calls to action so as to engage audiences and also to encourage them to take a meaningful action together.</p>
+                <br>
+                <p> Furthermore, our mission is highlighting and criticizing the devastating impact of industrialization on marine ecosystems.</p>
+            </div>
+    
+            <div class="modal-content hidden" id="content-team">
+                <h2>Core Team</h2>
+                <ul class="team-list">
+                    <li><strong>Ho Hoang</strong> - s4032836</li>
+                    <li><strong>Kyoyoon Ahn</strong> - s3916894</li>
+                    <li><strong>Cao Khai</strong> - s4019025</li>
+                    <li><strong>Duy Khai</strong> - s4131017</li>
+                </ul>
+            </div>
+    
+            <div class="modal-content hidden" id="content-status">
+                <h2>Status of water pollution</h2>
+                <p>Water pollution currently stands as a critical global emergency, characterized by a shift from visible waste to pervasive, invisible threats. While industrial dumping and untreated sewage remain severe issues in developing nations, ecosystems worldwide are now increasingly choked by microplastics and "forever chemicals" (PFAS) that persist for centuries. Additionally, agricultural runoff laden with fertilizers is causing massive "dead zones" in oceans and toxic algae blooms in freshwater sources. Despite growing regulatory efforts and new cleaning technologies, the rate of contamination often outpaces mitigation, threatening global biodiversity and limiting access to safe drinking water for millions.</p>
+            </div>
+        </div>
+    </div>
+
+<script>
+    // --- 1. PARALLAX EFFECT ---
+    // Only enabled on screens wider than 900px
+    if (window.innerWidth > 900) {
+        document.addEventListener("mousemove", (e) => {
+            const x = (window.innerWidth - e.pageX * 2) / 100;
+            const y = (window.innerHeight - e.pageY * 2) / 100;
+
+            const logo = document.querySelector('.center-graphic');
+            if(logo) logo.style.transform = `translate(calc(-50% + ${x * 2}px), calc(-50% + ${y * 2}px))`;
+
+            const lines = document.querySelector('.lines-layer');
+            if(lines) lines.style.transform = `translateX(${x}px) translateY(${y}px)`;
+
+            const container = document.querySelector('.container');
+            if(container) container.style.transform = `translateX(${x * 0.5}px) translateY(${y * 0.5}px)`;
+        });
+    }
+
+    // --- 2. MODAL LOGIC ---
+    const overlay = document.getElementById('infoOverlay');
+    const closeBtn = document.getElementById('closeModal');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const contents = document.querySelectorAll('.modal-content');
+
+    // Open Modal
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault(); 
+            const targetId = link.getAttribute('data-target');
+            
+            // Hide old content
+            contents.forEach(content => content.classList.remove('active-content'));
+            
+            // Show new content
+            const targetContent = document.getElementById(`content-${targetId}`);
+            if(targetContent) {
+                targetContent.classList.add('active-content');
+            }
+
+            // Show Overlay
+            overlay.classList.add('active');
+        });
+    });
+
+    // Close Modal
+    function closeModal() {
+        overlay.classList.remove('active');
+    }
+
+    closeBtn.addEventListener('click', closeModal);
+
+    // Click outside to close
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+            closeModal();
+        }
+    });
+
+    // Escape key to close
+    document.addEventListener('keydown', (e) => {
+        if (e.key === "Escape" && overlay.classList.contains('active')) {
+            closeModal();
+        }
+    });
+</script>
+
+</body>
+</html>
