@@ -390,7 +390,7 @@ p {
         top: auto; 
         left: auto;
         transform: none !important; /* Override JS parallax */
-        width: 800px;
+        width: 0px;
         margin-bottom: 20px;
         animation: logoReveal 1s ease-out forwards;
     }
